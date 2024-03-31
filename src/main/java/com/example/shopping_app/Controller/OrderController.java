@@ -23,9 +23,9 @@ public class OrderController {
     public ResponseEntity<Order> placeOrder(@PathVariable int userId, @RequestParam int qty, @RequestParam String coupon) {
         try {
             Order order = orderService.placeOrder(userId, qty, coupon);
-            return new ResponseEntity<>(order, HttpStatus.OK);
+            return ResponseEntity.ok(order); // Return the created order with OK status
         } catch (InvalidQuantityException | InvalidCouponException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build(); // Return NOT FOUND status if there's an error
         }
     }
 
